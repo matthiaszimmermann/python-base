@@ -6,6 +6,6 @@ FROM ghcr.io/astral-sh/uv:$UV_VERSION AS uv
 
 
 FROM mcr.microsoft.com/vscode/devcontainers/base:$DEBIAN_VERSION
-LABEL maintainer="a5chin <a5chin.origin+contact@gmain.com>"
+LABEL maintainer="a5chin <zimmermann@xbrain.com>"
 
 COPY --from=uv --chown=vscode: /uv /uvx /bin/
