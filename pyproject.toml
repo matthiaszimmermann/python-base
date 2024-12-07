@@ -12,6 +12,9 @@ license = { file = "LICENSE" }
 
 dependencies = ["pytz>=2024.2"]
 
+[tool.pytest.ini_options]
+pythonpath = "src"
+
 [tool.uv]
 dev-dependencies = [
     "pre-commit>=4.0.1",
