@@ -1,11 +1,15 @@
-ARG UV_VERSION=0.5.4
-ARG DEBIAN_VERSION=bookworm
+FROM python:3.12-slim-bookworm
 
+# Install system dependencies
+RUN apt-get update && apt-get install -y \
+    --no-install-recommends \
+    curl \
+    ca-certificates
 
-FROM ghcr.io/astral-sh/uv:$UV_VERSION AS uv
+# Install uv and add it to PATH
+ADD https://astral.sh/uv/install.sh /uv-installer.sh
+RUN sh /uv-installer.sh && rm /uv-installer.sh
 
+ENV PATH="/root/.local/bin/:$PATH"
 
-FROM mcr.microsoft.com/vscode/devcontainers/base:$DEBIAN_VERSION
-LABEL maintainer="a5chin <zimmermann@xbrain.com>"
-
-COPY --from=uv --chown=vscode: /uv /uvx /bin/
+WORKDIR /workspace

@@ -3,22 +3,14 @@ name = "default"
 version = "0.1.0"
 description = "This repository contains configurations to set up a Python development environment using VSCode's Dev Container feature. The environment includes uv and Ruff."
 
-authors = [{ name = "a5chin", email = "a5chin.origin+contact@gmail.com" }]
-maintainers = [{ name = "a5chin", email = "a5chin.origin+contact@gmail.com" }]
-
 requires-python = ">=3.9"
 readme = "README.md"
 license = { file = "LICENSE" }
 
-dependencies = ["pytz>=2024.2"]
+dependencies = ["pydantic>=2.10.6", "pytz>=2024.2"]
 
 [tool.pytest.ini_options]
 pythonpath = "src"
 
 [tool.uv]
-dev-dependencies = [
-    "pre-commit>=4.0.1",
-    "pyright>=1.1.389",
-    "pytest>=8.3.3",
-    "ruff>=0.8.0",
-]
+dev-dependencies = ["pyright>=1.1.389", "pytest>=8.3.3", "ruff>=0.8.0"]

@@ -1,4 +1,6 @@
-# Python Dev Container Repository
+# Python Base Repository
+
+Initial python project setup with Devcontainers, CI pipeline and the Serde library.
 
 ## Overview
 This repository is based on [github.com/a5chin/python-uv](https://github.com/a5chin/python-uv). Check its readme for the main layout of this repository.
@@ -11,7 +13,7 @@ This repository is based on [github.com/a5chin/python-uv](https://github.com/a5c
 
 ### Run Tests
 ```sh
-pytest
+uv run pytest
 ```
 
 ### Install Libraries
@@ -24,4 +26,11 @@ uv sync --no-dev
 
 # Use the add command to add dependencies to your project
 uv add {libraries}
+```
+
+## Run Command Line
+
+```sh
+uv run python src/main.py 42 Bob bob@example.com
+uv run python src/main.py '{"id":42,"name":"Bob","email":"bob@example.com"}'
 ```
