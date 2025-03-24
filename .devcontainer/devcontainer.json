@@ -9,10 +9,21 @@
     "customizations": {
         "vscode": {
             "settings": {
+                "git.editor": "nano",
+                "files.insertFinalNewline": true,
+                "files.trimTrailingWhitespace": true,
                 "python.defaultInterpreterPath": "/workspace/.venv/bin/python",
                 "python.terminal.activateEnvironment": true,
                 "python.formatting.provider": "ruff",
-                "editor.formatOnSave": true
+                "[python]": {
+                    "editor.codeActionsOnSave": {
+                        "source.fixAll": "explicit",
+                        "source.organizeImports": "explicit"
+                    },
+                    "editor.defaultFormatter": "charliermarsh.ruff",
+                    "editor.formatOnSave": true,
+                    "editor.tabSize": 4
+                }
             },
             "extensions": [
                 "ms-python.python",
@@ -24,5 +35,5 @@
             ]
         }
     },
-    "postCreateCommand": "uv sync --dev"
+    "postCreateCommand": "uv sync && git config --global core.editor nano"
 }

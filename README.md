@@ -1,36 +1,43 @@
-# Python Base Repository
+# Pyton Base Repository
 
-Initial python project setup with Devcontainers, CI pipeline and the Serde library.
+Initial Python project setup with Devcontainers, CI pipeline and the Pydantic library.
 
-## Overview
-This repository is based on [github.com/a5chin/python-uv](https://github.com/a5chin/python-uv). Check its readme for the main layout of this repository.
+## Setup
+
+1. Install [Docker](https://www.docker.com/get-started) and [VS Code](https://code.visualstudio.com/)
+2. Install the [Remote - Containers](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers) extension in VS Code
+3. Clone this repository:
+```bash
+git clone https://github.com/matthiaszimmermann/python-base.git
+```
+4. Open the project in VS Code:
+```bash
+code python-base
+```
+5. When prompted, click "Reopen in Container"
 
 ## TODO
-- Improve documentation
-- Add logging support
 
-## Appendix
+- remove .vscode folder (move to .devcontainer/devcontainer.json)
+- streamline gihub setup/pipelines
+- add user test
 
-### Run Tests
-```sh
-uv run pytest
+## Usage
+Once the dev container is built and running, you can use the integrated terminal in VS Code to run commands.
+
+### Formatting
+```bash
+ruff check
 ```
 
-### Install Libraries
-```sh
-# Install also include develop dependencies
-uv sync
-
-# If you do not want dev dependencies to be installed
-uv sync --no-dev
-
-# Use the add command to add dependencies to your project
-uv add {libraries}
+### Running Tests
+To run all tests:
+```bash
+pytest
 ```
 
-## Run Command Line
-
+## Run Example
 ```sh
-uv run python src/main.py 42 Bob bob@example.com
-uv run python src/main.py '{"id":42,"name":"Bob","email":"bob@example.com"}'
+python src/main.py 42 Bob bob@example.com
+python src/main.py '{"id":42,"name":"Bob","email":"bob@example.com"}'
 ```
