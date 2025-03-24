@@ -1,7 +1,6 @@
 from datetime import datetime, timedelta  # noqa: INP001
 
-import pytz
-from pytz import timezone
+from pytz import UTC, timezone
 
 
 def test_flight_time() -> None:
@@ -29,8 +28,8 @@ def test_flight_time() -> None:
     arrival_local = tz_bangkok.localize(arrival_date)
 
     # Convert both times to UTC for comparison
-    departure_utc = departure_local.astimezone(pytz.UTC)
-    arrival_utc = arrival_local.astimezone(pytz.UTC)
+    departure_utc = departure_local.astimezone(UTC)
+    arrival_utc = arrival_local.astimezone(UTC)
 
     # Check UTC times
     assert departure_utc
@@ -51,17 +50,17 @@ def test_flight_time() -> None:
 
     # Calculate offset difference in hours
     tz_diff_hours = bangkok_offset - zurich_offset
-    assert (
-        tz_diff_hours == expected_tz_difference
-    ), f"Unexpected TZ difference, exected {expected_tz_difference} got {tz_diff_hours}"
+    assert tz_diff_hours == expected_tz_difference, (
+        f"Unexpected TZ difference: found {expected_tz_difference} got {tz_diff_hours}"
+    )
 
     # 2. Check the expected flight time
     # Calculate actual flight duration
     flight_duration = arrival_utc - departure_utc
     flight_hours = flight_duration.total_seconds() / 3600.0
-    assert (
-        abs(flight_hours - expected_flight_hours) < 0.0001
-    ), f"Expected flight time ~{expected_flight_hours}h, got {flight_hours:.2f}h"
+    assert abs(flight_hours - expected_flight_hours) < 0.0001, (
+        f"Expected flight time ~{expected_flight_hours}h, got {flight_hours:.2f}h"
+    )
 
     # 3. Check that the arrival time equals departure time + flight duration
     # Add the expected flight time to the departure time and compare to arrival time
