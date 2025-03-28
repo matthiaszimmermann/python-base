@@ -1,7 +1,5 @@
 """Tests for the Flight class."""
 
-from datetime import datetime
-
 import pytest
 
 from examples.flight import Flight
@@ -12,13 +10,11 @@ def test_valid_flight() -> None:
     flight = Flight(
         # Departure information
         departure_airport="ZRH",
-        departure_time=datetime(2024, 3, 25, 13, 30),  # 13:30
+        departure_time=Flight.datetime_utc(2024, 3, 25, 13, 30),  # 13:30
         departure_utc_offset=1,  # CET (UTC+1)
-
         # Arrival information
         arrival_airport="BKK",
         arrival_utc_offset=7,  # ICT (UTC+7)
-
         # Flight duration
         duration_minutes=640,  # 10h40m
     )
@@ -30,17 +26,15 @@ def test_valid_flight() -> None:
 
 def test_invalid_airport_code() -> None:
     """Test invalid airport code length."""
-    with pytest.raises(ValueError):
+    with pytest.raises(ValueError, match="String should have at most 3 characters"):
         Flight(
             # Departure information
             departure_airport="ZRHX",  # Too long
-            departure_time=datetime(2024, 3, 25, 13, 30),
+            departure_time=Flight.datetime_utc(2024, 3, 25, 13, 30),
             departure_utc_offset=1,
-
             # Arrival information
             arrival_airport="BKK",
             arrival_utc_offset=7,
-
             # Flight duration
             duration_minutes=640,
         )
@@ -48,17 +42,15 @@ def test_invalid_airport_code() -> None:
 
 def test_invalid_utc_offset() -> None:
     """Test invalid UTC offset."""
-    with pytest.raises(ValueError):
+    with pytest.raises(ValueError, match="Input should be less than or equal to 14"):
         Flight(
             # Departure information
             departure_airport="ZRH",
-            departure_time=datetime(2024, 3, 25, 13, 30),
+            departure_time=Flight.datetime_utc(2024, 3, 25, 13, 30),
             departure_utc_offset=15,  # Invalid offset
-
             # Arrival information
             arrival_airport="BKK",
             arrival_utc_offset=7,
-
             # Flight duration
             duration_minutes=640,
         )
@@ -69,18 +61,16 @@ def test_arrival_time_calculation() -> None:
     flight = Flight(
         # Departure information
         departure_airport="ZRH",
-        departure_time=datetime(2024, 3, 25, 13, 30),
+        departure_time=Flight.datetime_utc(2024, 3, 25, 13, 30),
         departure_utc_offset=1,
-
         # Arrival information
         arrival_airport="BKK",
         arrival_utc_offset=7,
-
         # Flight duration
         duration_minutes=640,
     )
 
-    expected_arrival = datetime(2024, 3, 26, 0, 10)  # 10h40m after departure
+    expected_arrival = Flight.datetime_utc(2024, 3, 26, 0, 10)  # 10h40m after departure
     assert flight.calculate_arrival_time() == expected_arrival
 
 
@@ -89,13 +79,11 @@ def test_local_times() -> None:
     flight = Flight(
         # Departure information
         departure_airport="ZRH",
-        departure_time=datetime(2024, 3, 25, 13, 30),
+        departure_time=Flight.datetime_utc(2024, 3, 25, 13, 30),
         departure_utc_offset=1,
-
         # Arrival information
         arrival_airport="BKK",
         arrival_utc_offset=7,
-
         # Flight duration
         duration_minutes=640,
     )

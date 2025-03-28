@@ -13,7 +13,7 @@ def setup_logging() -> None:  # noqa: D103
     if logger_config_loaded:
         return
 
-    with Path("logging_config.json").open() as f:
+    with LOGGER_CONFIG_FILE.open() as f:
         config_from_json = json.load(f)
 
     config.dictConfig(config_from_json)

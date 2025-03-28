@@ -26,9 +26,9 @@ def main() -> None:
     """Show how to use the User class."""
     user = User(id=1, name="Alice Smith", email="alice.smith@example.com")
 
-    print(f"User: {user.name}")  # noqa: T201
-    print(f"Email: {user.email}")  # noqa: T201
-    print(f"ID: {user.id}")  # noqa: T201
+    print(f"User: {user.name}")
+    print(f"Email: {user.email}")
+    print(f"ID: {user.id}")
 
 
 if __name__ == "__main__":

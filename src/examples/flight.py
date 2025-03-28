@@ -1,8 +1,10 @@
 """Example of using Pydantic for flight time handling."""
 
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 
 from pydantic import BaseModel, Field
+
+UTC: timezone = timezone(offset=timedelta(hours=0))
 
 
 class Flight(BaseModel):
@@ -19,6 +21,13 @@ class Flight(BaseModel):
 
     # Flight duration
     duration_minutes: int = Field(..., gt=0)
+
+    @classmethod
+    def datetime_utc(
+        cls, year: int, month: int, day: int, hour: int, minute: int = 0
+    ) -> datetime:
+        """Provide a UTC datetime for the provided parameter values."""
+        return datetime(year, month, day, hour, minute, tzinfo=UTC)
 
     def calculate_arrival_time(self) -> datetime:
         """Calculate arrival time based on departure time and duration."""
@@ -40,12 +49,11 @@ class Flight(BaseModel):
 
 
 def main() -> None:
-    """Show how to use the Flight class."""
-    # Example flight from New York to London
+    """Demo using flight from New York to London."""
     flight = Flight(
         # Departure information
         departure_airport="JFK",
-        departure_time=datetime(2024, 3, 25, 20, 0),  # 8 PM
+        departure_time=Flight.datetime_utc(2024, 3, 25, 20, 0),  # 8 PM
         departure_utc_offset=-4,  # EDT (UTC-4)
         # Arrival information
         arrival_airport="LHR",
