@@ -37,6 +37,11 @@ The project uses `ruff` for both linting and formatting. Run the following comma
 uv run ruff check
 ```
 
+The project uses `pyright` for type checking. Run the following command to check your code:
+```bash
+uv run pyright
+```
+
 ### Testing
 
 Run the test suite with:

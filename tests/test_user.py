@@ -25,7 +25,7 @@ def test_to_json() -> None:
     """Test converting user to JSON."""
     user = User(id=TEST_ID, name=TEST_NAME, email=TEST_EMAIL)
 
-    json_str = user.to_json()
+    json_str: str = user.to_json()
     assert f'"id":{TEST_ID}' in json_str
     assert f'"name":"{TEST_NAME}"' in json_str
     assert f'"email":"{TEST_EMAIL}"' in json_str

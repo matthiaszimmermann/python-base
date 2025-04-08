@@ -104,8 +104,9 @@ line-ending = "auto"
 [tool.pyright]
 pythonVersion = "3.12"
 pythonPlatform = "All"
+venvPath = "."
 venv = ".venv"
-include = []
+include = ["src"]
 exclude = [
     "**/__pycache__",
     ".pytest_cache",
