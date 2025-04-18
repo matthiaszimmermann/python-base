@@ -1,6 +1,7 @@
 """Tests for the User class."""
 
 import pytest
+from pydantic import ValidationError
 
 from examples.user import User
 
@@ -47,6 +48,17 @@ def test_invalid_json() -> None:
         User.from_json(
             '{"id": "not_an_integer", "name": "Alice", "email": "alice@example.com"}'
         )
+
+
+def test_malformed_json() -> None:
+    """Test handling malformed JSON string."""
+    with pytest.raises(ValidationError) as exc_info:
+        User.from_json('{"id": 1, "name": "Alice" "email": "alice@example.com"}')
+
+    print(f"exc_info.type.__name__: {exc_info.type.__name__}")
+    print(f"str(exc_info.value).lower(): {str(exc_info.value).lower()}")
+    # Verify we get a JSON parsing error
+    assert "json_invalid" in str(exc_info.value).lower()
 
 
 def test_invalid_email() -> None:

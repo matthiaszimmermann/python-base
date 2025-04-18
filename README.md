@@ -30,6 +30,11 @@ code python-base
 
 ## Development Workflow
 
+Add the local modules
+```bash
+uv pip install -e .
+```
+
 ### Code Quality Tools
 
 The project uses `ruff` for both linting and formatting. Run the following command to check your code:
@@ -74,8 +79,9 @@ logger.info("Application started")
 
 The repository includes example code demonstrating Pydantic model usage:
 ```sh
-python src/main.py 42 Bob bob@example.com
-python src/main.py '{"id":42,"name":"Bob","email":"bob@example.com"}'
+uv run -m main
+uv run -m examples.user
+uv run -m examples.flight
 ```
 
 ## Contributing
