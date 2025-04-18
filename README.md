@@ -28,12 +28,20 @@ code python-base
 ```
 4. When prompted, click "Reopen in Container"
 
-## Development Workflow
+## Example Usage
 
 Add the local modules
 ```bash
 uv pip install -e .
 ```
+Run the examples:
+```sh
+uv run -m main
+uv run -m examples.user
+uv run -m examples.flight
+```
+
+## Development Workflow
 
 ### Code Quality Tools
 
@@ -73,15 +81,6 @@ from logging_config import get_logger
 
 logger = get_logger(__name__)
 logger.info("Application started")
-```
-
-## Example Usage
-
-The repository includes example code demonstrating Pydantic model usage:
-```sh
-uv run -m main
-uv run -m examples.user
-uv run -m examples.flight
 ```
 
 ## Contributing
