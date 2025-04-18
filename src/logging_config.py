@@ -20,9 +20,9 @@ logger_config_loaded = False
 class RelativePathLogRecord(LogRecord):
     """Extended LogRecord that adds a relpath attribute for relative paths."""
 
-    def __init__(self, *args, **kwargs) -> None: # noqa: D107 ANN002 ANN003
+    def __init__(self, *args, **kwargs) -> None:  # noqa: D107 ANN002 ANN003
         super().__init__(*args, **kwargs)
-        workspace_path = os.getcwd() # noqa: PTH109
+        workspace_path = os.getcwd()  # noqa: PTH109
         try:
             # Convert pathname to a relative path from workspace root
             if hasattr(self, "pathname") and self.pathname.startswith(workspace_path):
@@ -36,22 +36,33 @@ class RelativePathLogRecord(LogRecord):
 class RelativePathFilter(Filter):
     """Filter that ensures the relpath attribute is available."""
 
-    def filter(self, record) -> bool: # noqa: D102 ARG002 ANN001
+    def filter(self, record) -> bool:  # noqa: D102 ARG002 ANN001
         return True
 
 
 class RelativePathLoggerFactory(getLoggerClass()):
     """Custom logger class that uses RelativePathLogRecord."""
 
-    def makeRecord(  # noqa: PLR0913 N802
+    # ruff: noqa
+    def makeRecord(
         self,
-        name, level, fn, lno, msg, args, exc_info, # noqa: ANN001
-        func=None, extra=None, sinfo=None, # noqa: ANN001 ARG002
+        name,
+        level,
+        fn,
+        lno,
+        msg,
+        args,
+        exc_info,
+        func=None,
+        extra=None,
+        sinfo=None,
     ) -> RelativePathLogRecord:
         """Create a RelativePathLogRecord."""
         return RelativePathLogRecord(
             name, level, fn, lno, msg, args, exc_info, func, sinfo
         )
+
+    # ruff: enable
 
 
 def setup_logging() -> None:  # noqa: D103

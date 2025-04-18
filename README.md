@@ -39,7 +39,7 @@ uv pip install -e .
 
 The project uses `ruff` for both linting and formatting. Run the following command to check your code:
 ```bash
-uv run ruff check
+uv run ruff format . --check --diff
 ```
 
 The project uses `pyright` for type checking. Run the following command to check your code:

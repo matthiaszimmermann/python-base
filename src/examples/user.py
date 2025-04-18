@@ -35,6 +35,7 @@ class User(BaseModel):
             logger.error(f"Conversion exception: {e.__class__.__name__}: {e!s}")
             raise
 
+
 # ruff: noqa
 def main() -> None:
     """Show how to use the User class."""
@@ -49,6 +50,9 @@ def main() -> None:
         User.from_json('{"id":1,"name":"Alice')
     except:
         pass
+
+
+# ruff: enable
 
 
 if __name__ == "__main__":
